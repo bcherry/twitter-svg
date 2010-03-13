@@ -8,7 +8,7 @@ var app = (function (parent, global, console, Raphael, $) {
 		next_x = 10,
 		next_y = 10,
 		baseWidth = 300,
-		baseHeight = 140,
+		baseHeight = 56,
 		window = $(global); // is this bad?  Probably, but whatever.
 	
 	// Sets up the canvas (must be called first)
@@ -16,7 +16,7 @@ var app = (function (parent, global, console, Raphael, $) {
 		canvas = Raphael(0, 0, window.width(), window.height());
 		canvas.rect(0, 0, window.width(), window.height()).attr({
 			fill: "#ccc",
-			"stroke-width": 0
+			"stroke-width": 0	
 		});
 	};
 	
@@ -42,23 +42,28 @@ var app = (function (parent, global, console, Raphael, $) {
 	// Adds a graphical element
 	// elem is assumed to have the following structure:
 	// elem = {
+	//     id: Number,
 	//     name: String,
 	//     text: String,
 	//     img: String
 	// }
 	my.draw = function (elem) {
-		var shape = canvas.rect(next_x, next_y, baseWidth, baseHeight, 2),
-			rotation = Math.random() * 60 - 30;
+		var rect = canvas.rect(next_x, next_y, baseWidth, baseHeight, 2),
+			img = canvas.image(elem.img, next_x + 2, next_y + 2, 48, 48),
+			rotation = Math.random() * 60 - 30,
+			
+			set = canvas.set(rect, img);
 		
 		// Apply graphical transformations
-		shape.attr({
-			rotation: rotation,
+		rect.attr({
 			fill: "#fff"
 		});
 		
+		set.rotate(rotation, rect.)
+		
 		shift();
 		
-		return shape;
+		return set;
 	};
 	
 	return parent;
