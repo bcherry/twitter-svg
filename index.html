@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+
+	<title>twitter-svg</title>
+	<link href="/static/css/main.css" rel="stylesheet" media="screen" />
+	<link href="/favicon.ico" rel="shortcut icon" />
+</head>
+<body>
+	
+	<script src="/static/js/LAB.min.js"></script>
+	<script>
+		var app = {};
+		
+		$LAB
+		.script("/static/js/jquery-1.4.2.min.js")
+		.script("/static/js/raphael.min.js")
+		.wait(function () {
+			jQuery.noConflict();
+		})
+		.script("/static/js/twitter.js")
+		.script("/static/js/graphics.js")
+		.script("/static/js/main.js")
+		.wait(function () {
+			app.init();
+		});
+	</script>
+</body>
+</html>
