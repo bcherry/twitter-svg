@@ -8,7 +8,7 @@ var app = (function (parent, global, console, Raphael, $) {
 		next_x = 10,
 		next_y = 10,
 		baseWidth = 300,
-		baseHeight = 56,
+		baseHeight = 52,
 		window = $(global); // is this bad?  Probably, but whatever.
 	
 	// Sets up the canvas (must be called first)
@@ -52,14 +52,16 @@ var app = (function (parent, global, console, Raphael, $) {
 			img = canvas.image(elem.img, next_x + 2, next_y + 2, 48, 48),
 			rotation = Math.random() * 60 - 30,
 			
-			set = canvas.set(rect, img);
+			set = canvas.set(rect, img),
+			
+			bbox = rect.getBBox();
 		
 		// Apply graphical transformations
 		rect.attr({
 			fill: "#fff"
 		});
 		
-		set.rotate(rotation, rect.)
+		set.rotate(rotation, next_x + bbox.width / 2, next_y + bbox.height / 2);
 		
 		shift();
 		

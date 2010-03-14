@@ -22,6 +22,7 @@ var app = (function (my, window, console, $) {
 	my.init = function () {
 		$(function () {
 			my.graphics.init();
+//			setInterval(run, 1000);
 			run();
 		});
 	};
