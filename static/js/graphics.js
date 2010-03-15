@@ -14,6 +14,23 @@ var app = (function (parent, global, console, Raphael, $) {
 		direction = 1,
 		window = $(global); // is this bad?  Probably, but whatever.
 	
+	function makeToolbar() {
+		var info,
+			play,
+			pause,
+			settings,
+			x = $(window).width() - 40,
+			w = 32,
+			h = 32;
+		
+		info = canvas.image("/static/img/info.png", x, 8, w, h);
+		play = canvas.image("/static/img/play.png", x, 48, w, h);
+		pause = canvas.image("/static/img/pause.png", x, 48, w, h);
+		settings = canvas.image("/static/img/settings.png", x, 88, w, h);
+		
+		pause.hide();
+	}
+	
 	// Sets up the canvas (must be called first)
 	my.init = function () {
 		canvas = Raphael(0, 0, window.width(), window.height());
@@ -21,6 +38,8 @@ var app = (function (parent, global, console, Raphael, $) {
 			fill: "#ccc",
 			"stroke-width": 0	
 		});
+		
+		makeToolbar();
 	};
 	
 	function increment(amount, variance) {
@@ -33,7 +52,7 @@ var app = (function (parent, global, console, Raphael, $) {
 		next_x += direction * increment(baseWidth);
 		
 		if (direction > 0) {
-			if (next_x + baseWidth > window.width() + 20) {
+			if (next_x + baseWidth > (window.width() - 100) + 20) {
 				next_x -= increment(baseWidth);
 				next_y += baseHeight + rowSpacing;
 				
