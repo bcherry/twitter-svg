@@ -13,11 +13,13 @@ var app = (function (parent, window, console, $) {
 		
 		for (i = 0, l = data.length; i < l; i += 1) {
 			tweet = data[i];
+			
 			newData.push({
 				id: tweet.id,
 				name: tweet.user.name,
 				text: tweet.text,
-				img: tweet.user.profile_image_url
+				img: tweet.user.profile_image_url,
+				timeAgo: ~~((new Date().getTime() - Date.parse(tweet.created_at)) / 1000)
 			});
 		}
 		
@@ -41,7 +43,7 @@ var app = (function (parent, window, console, $) {
 	};
 	
 	// Offline override
-	my.get = function (callback) {
+	my.getMock = function (callback) {
 		var data = [],
 			i;
 		
@@ -52,7 +54,8 @@ var app = (function (parent, window, console, $) {
 					name: "someuser",
 					profile_image_url: "/static/img/twitter_profile.png"
 				},
-				text: "lorem ipsum dolor sit amet in one hundred forty characters or less"
+				text: "lorem ipsum dolor sit amet in one hundred forty characters or less",
+				timeAgo: 123
 			});
 		}
 		
@@ -66,6 +69,8 @@ var app = (function (parent, window, console, $) {
 			success(data);
 		}, 2000);
 	};
+	
+//	my.get = my.getMock;
 	
 	return parent;
 }(app || {}, window, window.console, jQuery));
