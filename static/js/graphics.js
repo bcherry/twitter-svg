@@ -19,6 +19,7 @@ var app = (function (parent, global, console, Raphael, $) {
 			play,
 			pause,
 			settings,
+			loading,
 			x = $(window).width() - 40,
 			w = 32,
 			h = 32;
@@ -27,14 +28,17 @@ var app = (function (parent, global, console, Raphael, $) {
 		play = canvas.image("/static/img/play.png", x, 48, w, h);
 		pause = canvas.image("/static/img/pause.png", x, 48, w, h);
 		settings = canvas.image("/static/img/settings.png", x, 88, w, h);
+		loading = canvas.image("/static/img/loading.gif", x + 8, 128, 16, 16);
 		
 		pause.hide();
+		loading.hide();
 		
 		return {
 			info: $(info.node),
 			play: $(play.node),
 			pause: $(pause.node),
-			settings: $(settings.node)
+			settings: $(settings.node),
+			loading: $(loading.node)
 		};
 	};
 	
@@ -57,7 +61,7 @@ var app = (function (parent, global, console, Raphael, $) {
 		next_x += direction * increment(baseWidth);
 		
 		if (direction > 0) {
-			if (next_x + baseWidth > (window.width() - 100) + 20) {
+			if (next_x + baseWidth > (window.width() - 100)) {
 				next_x -= increment(baseWidth);
 				next_y += baseHeight + rowSpacing;
 				

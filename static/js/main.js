@@ -3,7 +3,8 @@
 "use strict";
 
 var app = (function (my, window, console, $) {
-	var interval;
+	var toolbar,
+		interval;
 	
 	function run() {
 		function callback(data) {
@@ -18,11 +19,15 @@ var app = (function (my, window, console, $) {
 				i += 1;
 				if (i < l) {
 					setTimeout(repeat, 0);
+				} else {
+					toolbar.loading.hide();
 				}
 			}, 0);
 		}
 		
 		my.twitter.get(callback);
+		
+		toolbar.loading.show();
 	}
 	
 	my.play = function () {
@@ -37,7 +42,7 @@ var app = (function (my, window, console, $) {
 		interval = undefined;
 	};
 	
-	function bindToolbar(toolbar) {
+	function bindToolbar() {
 		toolbar.info.bind("click", my.dialogs.info.open);
 		toolbar.settings.bind("click", my.dialogs.settings.open);
 		toolbar.play.bind("click", function () {
@@ -56,7 +61,8 @@ var app = (function (my, window, console, $) {
 		$(function () {
 			my.graphics.init();
 			
-			bindToolbar(my.graphics.drawToolbar());
+			toolbar = my.graphics.drawToolbar();
+			bindToolbar();
 			
 			my.updateSettings({
 				interval: 15000
