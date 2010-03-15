@@ -40,5 +40,32 @@ var app = (function (parent, window, console, $) {
 		});
 	};
 	
+	// Offline override
+	my.get = function (callback) {
+		var data = [],
+			i;
+		
+		for (i = 0; i < 20; i += 1) {
+			data.push({
+				id: ~~(Math.random() * 1000000000),
+				user: {
+					name: "someuser",
+					profile_image_url: "/static/img/twitter_profile.png"
+				},
+				text: "lorem ipsum dolor sit amet in one hundred forty characters or less"
+			});
+		}
+		
+		function success(data) {
+			if (callback) {
+				callback(transform(data))
+			}
+		}
+		
+		setTimeout(function () {
+			success(data);
+		}, 2000);
+	};
+	
 	return parent;
 }(app || {}, window, window.console, jQuery));

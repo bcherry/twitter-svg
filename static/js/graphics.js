@@ -50,7 +50,7 @@ var app = (function (parent, global, console, Raphael, $) {
 	my.draw = function (elem) {
 		var rect = canvas.rect(next_x, next_y, baseWidth, baseHeight, 2),
 			img = canvas.image(elem.img, next_x + 2, next_y + 2, 48, 48),
-			rotation = Math.random() * 60 - 30,
+			rotation = Math.random() * 44 - 22,
 			
 			set = canvas.set(rect, img),
 			
