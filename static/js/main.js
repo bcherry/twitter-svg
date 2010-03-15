@@ -73,6 +73,10 @@ var app = (function (my, window, console, $) {
 	
 	my.updateSettings = function (settings) {
 		my.settings = settings;
+		if (interval) {
+			my.pause();
+			my.play();
+		}
 	};
 	
 	return my;

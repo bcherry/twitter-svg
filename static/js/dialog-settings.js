@@ -8,7 +8,9 @@ var app = (function (parent, window, console, $) {
 		open = false;
 	
 	my.open = function () {
-		var dialog;
+		var dialog,
+			interval,
+			settings = parent.settings || {};
 		
 		if (open) {
 			return;
@@ -17,6 +19,14 @@ var app = (function (parent, window, console, $) {
 		
 		dialog = $("<div/>");
 		
+		interval = $("<input/>").attr({
+			type: "text"
+		});
+		
+		interval.val(settings.interval);
+		
+		dialog.append(interval);
+				
 		dialog.dialog({
 			title: "Settings",
 			modal: true,
@@ -27,7 +37,9 @@ var app = (function (parent, window, console, $) {
 			},
 			buttons: {
 				"Save": function () {
-					parent.updateSettings(/*TODO*/);
+					parent.updateSettings({
+						interval: +interval.val()
+					});
 					dialog.dialog("close");
 				},
 				"Cancel": function () {
