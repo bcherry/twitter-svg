@@ -6,14 +6,19 @@ var app = (function (my, window, console, $) {
 	
 	function run() {
 		function callback(data) {
-			var i,
-				l,
+			var i = 0,
+				l = data.length,
 				tweet;
 			
-			for (i = 0, l = data.length; i < l; i += 1) {
+			setTimeout(function repeat() {
 				tweet = data[i];
 				my.graphics.draw(tweet);
-			}
+				
+				i += 1;
+				if (i < l) {
+					setTimeout(repeat, 0);
+				}
+			}, 0);
 		}
 		
 		my.twitter.get(callback);

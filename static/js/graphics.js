@@ -9,6 +9,9 @@ var app = (function (parent, global, console, Raphael, $) {
 		next_y = 10,
 		baseWidth = 300,
 		baseHeight = 52,
+		rowHeight = 65,
+		rotationDegrees = 30,
+		direction = 1,
 		window = $(global); // is this bad?  Probably, but whatever.
 	
 	// Sets up the canvas (must be called first)
@@ -27,14 +30,32 @@ var app = (function (parent, global, console, Raphael, $) {
 	}
 	
 	function shift() {
-		next_x += increment(baseWidth);
+		next_x += direction * increment(baseWidth);
 		
-		if (next_x + baseWidth > window.width()) {
-			next_x = increment(baseWidth) - baseWidth;
-			next_y += increment(baseHeight);
+		if (direction > 0) {
+			if (next_x + baseWidth > window.width() + 20) {
+				next_x -= increment(baseWidth);
+				next_y += rowHeight;
+				
+				direction = -1;
 			
-			if (next_y + baseHeight > window.height()) {
-				next_y = increment(baseHeight) - baseHeight;
+				if (next_y + baseHeight > window.height()) {
+					next_y = 10;
+					next_x = increment(baseWidth) - baseWidth;
+					direction = 1;
+				}
+			}
+		} else {
+			if (next_x < -20) {
+				next_x = increment(baseWidth) - baseWidth;
+				next_y += rowHeight;
+				
+				direction = 1;
+			
+				if (next_y + baseHeight > window.height()) {
+					next_y = 10;
+					next_x = increment(baseWidth) - baseWidth;
+				}
 			}
 		}
 	}
@@ -50,7 +71,7 @@ var app = (function (parent, global, console, Raphael, $) {
 	my.draw = function (elem) {
 		var rect = canvas.rect(next_x, next_y, baseWidth, baseHeight, 2),
 			img = canvas.image(elem.img, next_x + 2, next_y + 2, 48, 48),
-			rotation = Math.random() * 44 - 22,
+			rotation = Math.random() * rotationDegrees - rotationDegrees / 2,
 			
 			set = canvas.set(rect, img),
 			
