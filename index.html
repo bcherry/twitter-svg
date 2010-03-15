@@ -5,6 +5,7 @@
 
 	<title>twitter-svg</title>
 	<link href="/static/css/main.css" rel="stylesheet" media="screen" />
+	<link href="/static/css/smoothness/jquery-ui-1.8rc3.custom.css" rel="stylesheet" media="screen" />
 	<link href="/favicon.ico" rel="shortcut icon" />
 </head>
 <body>
@@ -19,9 +20,12 @@
 		.wait(function () {
 			jQuery.noConflict();
 		})
+		.script("/static/js/jquery-ui-1.8rc3.custom.min.js")
 		.script("/static/js/twitter.js")
 		.script("/static/js/graphics.js")
 		.script("/static/js/main.js")
+		.script("/static/js/dialog-info.js")
+		.script("/static/js/dialog-settings.js")
 		.wait(function () {
 			app.init();
 		});

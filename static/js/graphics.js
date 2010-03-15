@@ -14,7 +14,7 @@ var app = (function (parent, global, console, Raphael, $) {
 		direction = 1,
 		window = $(global); // is this bad?  Probably, but whatever.
 	
-	function makeToolbar() {
+	my.drawToolbar = function() {
 		var info,
 			play,
 			pause,
@@ -29,7 +29,14 @@ var app = (function (parent, global, console, Raphael, $) {
 		settings = canvas.image("/static/img/settings.png", x, 88, w, h);
 		
 		pause.hide();
-	}
+		
+		return {
+			info: $(info.node),
+			play: $(play.node),
+			pause: $(pause.node),
+			settings: $(settings.node)
+		};
+	};
 	
 	// Sets up the canvas (must be called first)
 	my.init = function () {
@@ -38,8 +45,6 @@ var app = (function (parent, global, console, Raphael, $) {
 			fill: "#ccc",
 			"stroke-width": 0	
 		});
-		
-		makeToolbar();
 	};
 	
 	function increment(amount, variance) {

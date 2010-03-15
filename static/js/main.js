@@ -24,9 +24,18 @@ var app = (function (my, window, console, $) {
 		my.twitter.get(callback);
 	}
 	
+	function bindToolbar(toolbar) {
+		console.log("toolbar is %o", toolbar);
+		toolbar.info.bind("click", my.dialogs.info.open);
+		toolbar.settings.bind("click", my.dialogs.settings.open);
+	}
+	
 	my.init = function () {
 		$(function () {
 			my.graphics.init();
+			
+			bindToolbar(my.graphics.drawToolbar());
+			
 //			setInterval(run, 1000);
 			run();
 		});
