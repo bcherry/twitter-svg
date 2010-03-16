@@ -83,14 +83,15 @@ var app = (function (parent, window, console, $) {
 		dialog.appendFormRow("Twitter Password", password);
 		
 		dialog.append(
-			$("<p/>").text("To send a tweet, you will need to provide your credentials.  They'll be stored during this session.  Once you've entered everything in the big box above (140 characters or less!) and added your credentials, press \"Save\" and watch it go.")
+			$("<p/>").text("To send a tweet, you will need to provide your credentials. Once you've entered everything in the big box above (140 characters or less!) and added your credentials, press \"Save\" and watch it go."),
+			$("<p/>").text("If you do choose to provide your credentials, they will be stored in JavaScript during this session, and not stored on the server.  But, they will also be passed in plaintext to my server and then in a simple base64-encoded form to Twitter, so if you're paranoid stick to the public timeline.")
 		);
 		
 		dialog.dialog({
 			title: "Settings",
 			modal: true,
 			width: 640,
-			height: 600,
+			height: 680,
 			close: function () {
 				open = false;
 			},
