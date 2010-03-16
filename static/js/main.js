@@ -4,7 +4,8 @@
 
 var app = (function (my, window, console, $) {
 	var toolbar,
-		interval;
+		interval,
+		settings = my.settings = my.settings || {};
 	
 	function run() {
 		function callback(data) {
@@ -54,6 +55,7 @@ var app = (function (my, window, console, $) {
 			my.pause();
 			toolbar.pause.hide();
 			toolbar.play.show();
+			toolbar.loading.hide();
 		});
 	}
 	
@@ -65,14 +67,21 @@ var app = (function (my, window, console, $) {
 			bindToolbar();
 			
 			my.updateSettings({
-				interval: 15000
+				interval: 15000,
+				type: "public"
 			});
 			
 		});
 	};
 	
 	my.updateSettings = function (settings) {
-		my.settings = settings;
+		var key;
+		
+		for (key in settings) {
+			if (settings.hasOwnProperty(key)) {
+				my.settings[key] = settings[key];
+			}
+		}
 		if (interval) {
 			my.pause();
 			my.play();

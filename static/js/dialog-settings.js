@@ -10,8 +10,10 @@ var app = (function (parent, window, console, $) {
 	my.open = function () {
 		var dialog,
 			interval,
+			type,
+			rows = 0,
 			settings = parent.settings || {};
-		
+				
 		if (open) {
 			return;
 		}
@@ -19,13 +21,40 @@ var app = (function (parent, window, console, $) {
 		
 		dialog = $("<div/>");
 		
+		dialog.appendFormRow = function (text, input) {
+			var name = "row_" + rows;
+			rows += 1;
+			input.attr({
+				name: name
+			});
+			dialog.append(
+				$("<div/>").append(
+					$("<label/>").attr({
+						"for": name
+					}).text(text),
+					input
+				)
+			);
+		};
+		
 		interval = $("<input/>").attr({
 			type: "text"
 		});
 		
 		interval.val(settings.interval);
 		
-		dialog.append(interval);
+		dialog.appendFormRow("Polling Interval (ms)", interval);
+		
+		type = $("<select/>").append(
+			$("<option/>").text("public"),
+			$("<option/>").text("home")
+		);
+		
+		type.val(settings.type);
+		
+		dialog.appendFormRow("Timeline Type", type);
+		
+		dialog.append($("<p/>").text("Note that if you select \"home\" timeline you will probably get prompted by your browser to enter your Twitter username/password.  Don't worry, this isn't stored (or even seen) by this application."));
 				
 		dialog.dialog({
 			title: "Settings",
@@ -38,7 +67,8 @@ var app = (function (parent, window, console, $) {
 			buttons: {
 				"Save": function () {
 					parent.updateSettings({
-						interval: +interval.val()
+						interval: +interval.val(),
+						type: type.val()
 					});
 					dialog.dialog("close");
 				},

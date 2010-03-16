@@ -3,7 +3,8 @@
 "use strict";
 
 var app = (function (parent, window, console, $) {
-	var my = parent.twitter = parent.twitter || {};
+	var my = parent.twitter = parent.twitter || {},
+		settings = parent.settings = parent.settings || {};
 	
 	function transform(data) {
 		var i,
@@ -27,7 +28,7 @@ var app = (function (parent, window, console, $) {
 	}
 	
 	my.get = function (callback) {
-		var url = "http://api.twitter.com/1/statuses/public_timeline.json";
+		var url = "http://api.twitter.com/1/statuses/{DEST}_timeline.json".split("{DEST}").join(settings.type);
 		
 		function success(data) {
 			if (callback) {
