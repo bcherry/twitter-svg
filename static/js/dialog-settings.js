@@ -59,7 +59,7 @@ var app = (function (parent, window, console, $) {
 		
 		dialog.appendFormRow("Timeline Type", type);
 		
-		dialog.append($("<p/>").text("Note that if you select the \"home\" timeline you'll need to enter your Twitter username/password below."));
+		dialog.append($("<p/>").text("Note that if you select the \"home\" timeline you'll need to enter your Twitter username/password below.  Don't worry, you won't update your status unless you type in the big box."));
 		
 		tweet = $("<textarea/>");
 		
@@ -83,7 +83,7 @@ var app = (function (parent, window, console, $) {
 		dialog.appendFormRow("Twitter Password", password);
 		
 		dialog.append(
-			$("<p/>").text("To send a tweet, you will need to provide your credentials.  They'll be stored during this session.  Once you've entered everything (140 characters or less!), press \"Save\" and watch it go.")
+			$("<p/>").text("To send a tweet, you will need to provide your credentials.  They'll be stored during this session.  Once you've entered everything in the big box above (140 characters or less!) and added your credentials, press \"Save\" and watch it go.")
 		);
 		
 		dialog.dialog({

@@ -22,7 +22,7 @@ var app = (function (parent, window, console, $) {
 			$("<h2/>").text("What's this all about?"),
 			$("<p/>").text("This is a simple Twitter API client, showing what's possible using SVG."),
 			$("<h2/>").text("How do I use it?"),
-			$("<p/>").text("There's some buttons over on the right.  Pretty self-explanatory.  Press the \"Play\" one to make it go."),
+			$("<p/>").text("There's some buttons over on the right.  Pretty self-explanatory.  Press the \"Play\" one to make it go.  There's also some useful settings and such."),
 			$("<h2/>").text("Who made it?"),
 			$("<p/>").html("This was made by <a href=\"http://www.adequatelygood.com/\" target=\"_blank\">Ben Cherry</a>, who has <a href=\"http://twitter.com/bcherry\" target=\"_blank\">a Twitter</a>.  But he'd also like to give credit to the creators of <a href=\"http://raphaeljs.com\" target=\"_blank\">Raphaël</a>, <a href=\"http://labjs.com\" target=\"_blank\">LABjs</a>, <a href=\"http://jquery.com\" target=\"_blank\">jQuery</a>, <a href=\"http://jqueryui.com\" target=\"_blank\">jQuery UI</a>, and, of couse, <a href=\"http://twitter.com\" target=\"_blank\">Twitter</a>."),
 			$("<h2/>").text("Why is it so broken?"),
@@ -32,14 +32,16 @@ var app = (function (parent, window, console, $) {
 				$("<li/>").text("OAuth isn't supported, though it probably should be."),
 				$("<li/>").text("It has little to no fault tolerance or error handling."),
 				$("<li/>").html("It <em>should</em> work in all browsers like Firefox, Chrome, Safari, Internet Explorer, and Opera, but it might not.")
-			)
+			),
+			$("<h2/>").text("I like it, where's the source?"),
+			$("<p/>").html("The source code is <a href=\"http://github.com/bcherry/twitter-svg\" target=\"_blank\">available on GitHub<a>, under an MIT License, though the files aren't annotated as such.")
 		);
 		
 		dialog.dialog({
 			title: "About Twitter/SVG",
 			modal: true,
 			width: 640,
-			height: 590,
+			height: 670,
 			close: function () {
 				open = false;
 			},
