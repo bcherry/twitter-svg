@@ -1,5 +1,5 @@
 /*jslint white: true, onevar: true, undef: true, nomen: true, eqeqeq: true, plusplus: true, bitwise: false, regexp: true, strict: true, newcap: false, immed: true, browser: true */
-/*globals window: false */
+/*globals window: false, jQuery: false, app: true */
 "use strict";
 
 var app = (function (parent, window, console, $) {
@@ -7,6 +7,16 @@ var app = (function (parent, window, console, $) {
 		settings = parent.settings = parent.settings || {};
 	
 	my.processedTweets = {};
+	
+	function transformTweet(tweet) {
+		return {
+			id: tweet.id,
+			name: tweet.user.name,
+			text: tweet.text,
+			img: tweet.user.profile_image_url,
+			timeAgo: ~~((new Date().getTime() - Date.parse(tweet.created_at)) / 1000)
+		};
+	}
 	
 	function transform(data) {
 		var i,
@@ -19,13 +29,7 @@ var app = (function (parent, window, console, $) {
 			tweet = data[i];
 			
 			if (!my.processedTweets[tweet.id]) {
-				newTweet = my.processedTweets[tweet.id] = {
-					id: tweet.id,
-					name: tweet.user.name,
-					text: tweet.text,
-					img: tweet.user.profile_image_url,
-					timeAgo: ~~((new Date().getTime() - Date.parse(tweet.created_at)) / 1000)
-				};
+				newTweet = my.processedTweets[tweet.id] = transformTweet(tweet);
 				newData.push(newTweet);
 			}
 		}
@@ -33,8 +37,49 @@ var app = (function (parent, window, console, $) {
 		return newData;
 	}
 	
+	my.send = function (status, callback) {
+		var url = "/updateStatus";
+		
+		function success(data) {
+			var tweet;
+			
+			if (data) {
+				tweet = transformTweet(data);
+				if (!my.processedTweets[tweet.id]) {
+					my.processedTweets[tweet.id] = tweet;
+					if (callback) {
+						callback(tweet);
+						return;
+					}
+				}
+			}
+			
+			if (callback) {
+				callback();
+			}
+		}
+		
+		$.ajax({
+			url: url,
+			data: {
+				status: status.slice(0, 140),
+				username: settings.username,
+				password: settings.password
+			},
+			dataType: "jsonp",
+			success: success
+		});
+	};
+	
 	my.get = function (callback) {
-		var url = "http://api.twitter.com/1/statuses/{DEST}_timeline.json".split("{DEST}").join(settings.type);
+		var url,
+			ajax;
+		
+		if (settings.type === "public") {
+			url = "http://api.twitter.com/1/statuses/public_timeline.json";
+		} else {
+			url = "/homeTimeline";
+		}
 		
 		function success(data) {
 			if (callback) {
@@ -42,11 +87,20 @@ var app = (function (parent, window, console, $) {
 			}
 		}
 		
-		$.ajax({
+		ajax = {
 			url: url,
 			dataType: "jsonp",
 			success: success
-		});
+		};
+		
+		if (settings.type === "home") {
+			ajax.data = {
+				username: settings.username,
+				password: settings.password
+			};
+		}
+		
+		$.ajax(ajax);
 	};
 	
 	// Offline override
@@ -68,7 +122,7 @@ var app = (function (parent, window, console, $) {
 		
 		function success(data) {
 			if (callback) {
-				callback(transform(data))
+				callback(transform(data));
 			}
 		}
 		

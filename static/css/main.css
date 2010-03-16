@@ -10,8 +10,8 @@ body {
 	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 
-.dialog {
-	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+.dialog, .dialog input, .dialog select, .dialog textarea {
+	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif !important;
 }
 
 .dialog h2 {
@@ -37,12 +37,15 @@ body {
 	width: 300px;
 }
 
-.dialog input[type=text] {
-	width: 100px;
-	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+.dialog input {
+	width: 200px;
 }
 
 .dialog select {
 	width: 100px;
-	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+.dialog textarea {
+	width: 580px;
+	margin-bottom: 15px;
 }

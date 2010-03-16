@@ -12,6 +12,9 @@ var app = (function (parent, window, console, $) {
 			interval,
 			type,
 			rows = 0,
+			tweet,
+			username,
+			password,
 			settings = parent.settings || {};
 				
 		if (open) {
@@ -56,18 +59,38 @@ var app = (function (parent, window, console, $) {
 		
 		dialog.appendFormRow("Timeline Type", type);
 		
-		dialog.append($("<p/>").text("Note that if you select \"home\" timeline you will probably get prompted by your browser to enter your Twitter username/password.  Don't worry, this isn't stored (or even seen) by this application."));
+		dialog.append($("<p/>").text("Note that if you select the \"home\" timeline you'll need to enter your Twitter username/password below."));
+		
+		tweet = $("<textarea/>");
 		
 		dialog.append(
 			$("<h2/>").text("I want to send tweets!"),
-			$("<p/>").text("Too bad, that isn't supported yet :(")
+			tweet
+		);
+		
+		username = $("<input/>").attr({
+			type: "text"
+		});
+		username.val(settings.username || "");
+		
+		dialog.appendFormRow("Twitter Username", username);
+		
+		password = $("<input/>").attr({
+			type: "password"
+		});
+		password.val(settings.password || "");
+		
+		dialog.appendFormRow("Twitter Password", password);
+		
+		dialog.append(
+			$("<p/>").text("To send a tweet, you will need to provide your credentials.  They'll be stored during this session.  Once you've entered everything (140 characters or less!), press \"Save\" and watch it go.")
 		);
 		
 		dialog.dialog({
 			title: "Settings",
 			modal: true,
 			width: 640,
-			height: 480,
+			height: 600,
 			close: function () {
 				open = false;
 			},
@@ -75,8 +98,19 @@ var app = (function (parent, window, console, $) {
 				"Save": function () {
 					parent.updateSettings({
 						interval: +interval.val(),
-						type: type.val()
+						type: type.val(),
+						username: username.val(),
+						password: password.val()
 					});
+					
+					if (tweet.val()) {
+						parent.twitter.send(tweet.val(), function (tweet) {
+							if (tweet) {
+								parent.graphics.draw(tweet);
+							}
+						});
+					}
+					
 					dialog.dialog("close");
 				},
 				"Cancel": function () {
