@@ -6,22 +6,28 @@ var app = (function (parent, window, console, $) {
 	var my = parent.twitter = parent.twitter || {},
 		settings = parent.settings = parent.settings || {};
 	
+	my.processedTweets = {};
+	
 	function transform(data) {
 		var i,
 			l,
 			tweet,
+			newTweet,
 			newData = [];
 		
 		for (i = 0, l = data.length; i < l; i += 1) {
 			tweet = data[i];
 			
-			newData.push({
-				id: tweet.id,
-				name: tweet.user.name,
-				text: tweet.text,
-				img: tweet.user.profile_image_url,
-				timeAgo: ~~((new Date().getTime() - Date.parse(tweet.created_at)) / 1000)
-			});
+			if (!my.processedTweets[tweet.id]) {
+				newTweet = my.processedTweets[tweet.id] = {
+					id: tweet.id,
+					name: tweet.user.name,
+					text: tweet.text,
+					img: tweet.user.profile_image_url,
+					timeAgo: ~~((new Date().getTime() - Date.parse(tweet.created_at)) / 1000)
+				};
+				newData.push(newTweet);
+			}
 		}
 		
 		return newData;

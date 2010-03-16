@@ -13,12 +13,13 @@ var app = (function (my, window, console, $) {
 				l = data.length,
 				tweet;
 			
+			if (data.length)
+			
 			setTimeout(function repeat() {
-				tweet = data[i];
-				my.graphics.draw(tweet);
-				
-				i += 1;
 				if (i < l) {
+					tweet = data[i];
+					my.graphics.draw(tweet);
+					i += 1;
 					setTimeout(repeat, 0);
 				} else {
 					toolbar.loading.hide();
