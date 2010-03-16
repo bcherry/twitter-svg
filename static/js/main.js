@@ -1,5 +1,5 @@
 /*jslint white: true, onevar: true, undef: true, nomen: true, eqeqeq: true, plusplus: true, bitwise: false, regexp: true, strict: true, newcap: false, immed: true, browser: true */
-/*globals window: false */
+/*globals window: false, jQuery: false, app: true */
 "use strict";
 
 var app = (function (my, window, console, $) {
@@ -12,8 +12,6 @@ var app = (function (my, window, console, $) {
 			var i = 0,
 				l = data.length,
 				tweet;
-			
-			if (data.length)
 			
 			setTimeout(function repeat() {
 				if (i < l) {

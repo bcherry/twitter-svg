@@ -1,5 +1,5 @@
 /*jslint white: true, onevar: true, undef: true, nomen: true, eqeqeq: true, plusplus: true, bitwise: false, regexp: true, strict: true, newcap: false, immed: true, browser: true */
-/*globals window: false */
+/*globals window: false, Raphael: false, jQuery: false, app: true */
 "use strict";
 
 var app = (function (parent, global, console, Raphael, $) {
@@ -14,7 +14,7 @@ var app = (function (parent, global, console, Raphael, $) {
 		direction = 1,
 		window = $(global); // is this bad?  Probably, but whatever.
 	
-	my.drawToolbar = function() {
+	my.drawToolbar = function () {
 		var info,
 			play,
 			pause,
@@ -165,7 +165,7 @@ var app = (function (parent, global, console, Raphael, $) {
 			
 			bbox = rect.getBBox();
 		
-		set = canvas.set(rect, img, name, text)
+		set = canvas.set(rect, img, name, text);
 		
 		// Apply graphical transformations
 		rect.attr({
