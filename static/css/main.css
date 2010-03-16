@@ -5,3 +5,44 @@ body {
 	background: #fff;
 	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
+
+.ui-dialog .ui-dialog-title {
+	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+.dialog {
+	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+.dialog h2 {
+	font-size: 18px;
+	letter-spacing: -.08em;
+}
+
+.dialog p {
+	font-size: 14px;
+}
+
+.dialog ul {
+	font-size: 14px;
+}
+
+
+.dialog .formRow {
+	margin-bottom: 15px;
+}
+
+.dialog label {
+	display: inline-block;
+	width: 300px;
+}
+
+.dialog input[type=text] {
+	width: 100px;
+	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+.dialog select {
+	width: 100px;
+	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+}

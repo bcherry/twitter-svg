@@ -19,7 +19,9 @@ var app = (function (parent, window, console, $) {
 		}
 		open = true;
 		
-		dialog = $("<div/>");
+		dialog = $("<div/>").addClass("dialog");
+		
+		dialog.append($("<h2/>").text("I want to get tweets!"));
 		
 		dialog.appendFormRow = function (text, input) {
 			var name = "row_" + rows;
@@ -28,7 +30,7 @@ var app = (function (parent, window, console, $) {
 				name: name
 			});
 			dialog.append(
-				$("<div/>").append(
+				$("<div/>").addClass("formRow").append(
 					$("<label/>").attr({
 						"for": name
 					}).text(text),
@@ -55,7 +57,12 @@ var app = (function (parent, window, console, $) {
 		dialog.appendFormRow("Timeline Type", type);
 		
 		dialog.append($("<p/>").text("Note that if you select \"home\" timeline you will probably get prompted by your browser to enter your Twitter username/password.  Don't worry, this isn't stored (or even seen) by this application."));
-				
+		
+		dialog.append(
+			$("<h2/>").text("I want to send tweets!"),
+			$("<p/>").text("Too bad, that isn't supported yet :(")
+		);
+		
 		dialog.dialog({
 			title: "Settings",
 			modal: true,
