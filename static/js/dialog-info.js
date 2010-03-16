@@ -26,11 +26,12 @@ var app = (function (parent, window, console, $) {
 			$("<h2/>").text("Who made it?"),
 			$("<p/>").html("This was made by <a href=\"http://www.adequatelygood.com/\" target=\"_blank\">Ben Cherry</a>, who has <a href=\"http://twitter.com/bcherry\" target=\"_blank\">a Twitter</a>.  But he'd also like to give credit to the creators of <a href=\"http://raphaeljs.com\" target=\"_blank\">Raphaël</a>, <a href=\"http://labjs.com\" target=\"_blank\">LABjs</a>, <a href=\"http://jquery.com\" target=\"_blank\">jQuery</a>, <a href=\"http://jqueryui.com\" target=\"_blank\">jQuery UI</a>, and, of couse, <a href=\"http://twitter.com\" target=\"_blank\">Twitter</a>."),
 			$("<h2/>").text("Why is it so broken?"),
-			$("<p/>").text("Because he wrote it in just a few days when he had time.  It currrently is deficient in the following ways:"),
+			$("<p/>").text("Because he wrote it in just a few days, when he had time.  Thus, it currrently is deficient in the following ways:"),
 			$("<ul/>").append(
 				$("<li/>").text("Foreign languages don't display well, especially Japanese"),
 				$("<li/>").text("OAuth isn't supported, though it probably should be."),
-				$("<li/>").text("It isn't very useful.  At all.")
+				$("<li/>").text("It has little to no fault tolerance or error handling."),
+				$("<li/>").html("It <em>should</em> work in all browsers like Firefox, Chrome, Safari, Internet Explorer, and Opera, but it might not.")
 			)
 		);
 		
@@ -38,7 +39,7 @@ var app = (function (parent, window, console, $) {
 			title: "About Twitter/SVG",
 			modal: true,
 			width: 640,
-			height: 550,
+			height: 590,
 			close: function () {
 				open = false;
 			},
